@@ -3,7 +3,6 @@ var http = require('http'),
 url = require('url'),
 path = require('path'),
 fs = require('fs'),
-sys = require('sys');
  
 // Req -> Petición , Res -> Respuesta
 server = http.createServer(function(req,res){
