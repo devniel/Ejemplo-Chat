@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+ 
+<script type="text/javascript">
+var socket = io.connect();
+socket.on("message",function(data){
+    var messageBox = document.createElement("div");
+    messageBox.className = "message";
+    messageBox.innerHTML = data;
+    document.getElementById("chat").appendChild(messageBox);
+});
+ 
+// LO QUE HICIMOS ANTES
+ 
+window.onload = function(){
+    var messageUser = document.getElementById("messageUser");
+ 
+    messageUser.addEventListener("keydown",function(event){
+     if(event.keyCode == 13){
+        var mensaje = document.getElementById("messageUser").value;
+        if(mensaje != ""){
+            document.getElementById("messageUser").value = "";
+            var messageBox = document.createElement("div");
+            messageBox.className = "message";
+            messageBox.innerHTML = mensaje;
+            document.getElementById("chat").appendChild(messageBox);
+            // Enviamos el mensaje por socket
+            socket.json.send(mensaje);
+        }
+     }
+    },false);
+}
+</script>
+<style type="text/css">
+#wrapper {
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-top:-200px;
+    margin-left:-300px;
+}
+#chat {
+    width:600px;
+    height:400px;
+     border:1px solid #CCC;
+        overflow:auto; /* Si el contenido sobrepasa las dimensiones del elemento aparecerán scrollbars */
+}
+ 
+/* Esto es una clase, se usa para elementos que van a repetirse, cosa que a todos los elementos aplicamos el mismo estilo */
+ 
+.message {
+    width:590px;
+    height:auto;
+    font:11px Tahoma;
+    color:#333;
+    padding:5px;
+    border-bottom:1px solid #F9F9F9;
+}
+ 
+#messageUser {
+    width:590px;
+    height:30px;
+    padding:5px;
+    border:1px solid #CCC;
+    margin-top:-1px;
+ 
+}
+</style>
+</head>
+<body>
+<div id="wrapper">
+<div id="chat">
+    <div class="message">Hola</div>
+</div>
+<input type="text" id="messageUser" placeholder="Mensaje ..."/>
+</div>
+</body>
+</html>

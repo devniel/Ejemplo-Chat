@@ -1,0 +1,8 @@
+{
+	"name" : "Chato",
+	"version" : "0.0.1",
+	"description" : "Chatea con node.js",
+	"dependencies" : {
+		"socket.io" : ">=0.8.7"
+	}
+}
